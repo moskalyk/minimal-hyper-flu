@@ -1,0 +1,33 @@
+aqua Main
+
+import "@fluencelabs/aqua-lib/builtin.aqua"
+import "@fluencelabs/aqua-lib/subnet.aqua"
+
+-- IMPORTANT: Add exports for all functions that you want to run
+export HypercoreService, appendBatch, getCore, transferTo
+
+data Payload:
+    content: string
+
+service HypercoreService("hypercoreService"):
+    appendBatch(payloads: []Payload) -> []Payload
+    get() -> []Payload
+
+func appendBatch(peer_id: PeerId, payload: []Payload) -> []Payload:
+    on peer_id:
+        res <- HypercoreService.appendBatch(payload)
+    <- res
+
+func getCore(peer_id: PeerId) -> []Payload:
+    on peer_id:
+        res <- HypercoreService.get()
+    <- res
+
+func transferTo(peer_src: PeerId, peer_target: PeerId) -> []Payload:
+
+    res1 <- getCore(peer_src)
+    
+    on peer_target:
+        res2 <- HypercoreService.appendBatch(res1)
+
+    <- res2

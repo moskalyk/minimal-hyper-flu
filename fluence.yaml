@@ -1,0 +1,39 @@
+# yaml-language-server: $schema=.fluence/schemas/fluence.json
+
+# Defines Fluence Project, most importantly - what exactly you want to deploy and how. You can use `fluence init` command to generate a template for new Fluence project
+
+# Documentation: https://github.com/fluencelabs/cli/tree/main/docs/configs/fluence.md
+
+version: 5
+
+aquaInputPath: src/aqua/main.aqua
+
+deals:
+  dealName:
+    minWorkers: 1
+    targetWorkers: 3
+    services: [ hypercore ]
+    spells: []
+
+services:
+  hypercore:
+    get: src/services/hypercore
+
+customFluenceEnv:
+  contractsEnv: local
+  relays:
+    - /ip4/127.0.0.1/tcp/9991/ws/p2p/12D3KooWB4j44Qw1DHePpJP8b74gvYyJvbXz4Kczy67HGHCdH44o
+
+hosts:
+  defaultWorker:
+    peerIds:
+      - 12D3KooWB4j44Qw1DHePpJP8b74gvYyJvbXz4Kczy67HGHCdH44o
+    services:
+      - hypercore
+    spells: []
+
+# yaml-language-server: $schema=.fluence/schemas/fluence.json
+
+# Defines Fluence Project, most importantly - what exactly you want to deploy and how. You can use `fluence init` command to generate a template for new Fluence project
+
+# Documentation: https://github.com/fluencelabs/cli/tree/main/docs/configs/fluence.md
